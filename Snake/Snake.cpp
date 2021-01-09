@@ -32,6 +32,19 @@ void Snake::update()
 	}
 }
 
+void Snake::subscribeOnDie(std::function<void()> handler)
+{
+	m_onDie = handler;
+}
+
+void Snake::onSegmentCollide(SnakeSegment& segment)
+{
+	Logger::debug("Snake died");
+	if (m_onDie != nullptr) {
+		m_onDie();
+	}
+}
+
 void Snake::setSpeed(float speed)
 {
 	m_speed = speed;
@@ -53,11 +66,6 @@ void Snake::m_addSection()
 	m_head = &section;
 	childs.push_back(&section);
 	GameObject::invoke(section);
-}
-
-void Snake::onCollide(void(*callback)())
-{
-	m_collide = callback;
 }
 
 void Snake::m_handleInput()

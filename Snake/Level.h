@@ -8,7 +8,7 @@ public:
 	using Size = Vector2d<unsigned short int>;
 	unsigned int score = 0;
 	char* name = nullptr;
-	float speed = 5;
+	float speed = 10;
 	Eat* eat = nullptr;
 	Snake* snake = nullptr;
 

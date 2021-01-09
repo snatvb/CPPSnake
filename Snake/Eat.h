@@ -1,6 +1,6 @@
 #pragma once
-#include "Core.h"
 #include <functional>
+#include "Core.h"
 
 class Eat : public Core::GameObject {
 public:

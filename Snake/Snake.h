@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include "Core.h"
 #include "SnakeSegment.h"
 
@@ -14,9 +15,10 @@ public:
 
 	void onInvoke() override;
 	void update() override;
+	void subscribeOnDie(std::function<void()> handler);
+	void onSegmentCollide(SnakeSegment& segment);
 	void setSpeed(float speed);
 	void grow();
-	void onCollide(void (*callback)());
 
 private:
 	SnakeSegment* m_head = nullptr;
@@ -25,11 +27,10 @@ private:
 	float m_speed = 1;
 	bool m_isGrowing = false;
 
-	void (*m_collide)() = nullptr;
+	std::function<void()> m_onDie = nullptr;
 
 	void m_handleInput();
 	void m_move();
 	void m_moveTail();
 	void m_addSection();
-	void m_teleportOutMap();
 };

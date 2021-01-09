@@ -8,14 +8,11 @@ Level::Level(const Size& size) : m_size(Size::clone(size))
 Level::~Level()
 {
 	delete snake;
+	delete eat;
 }
 
 void Level::init()
 {
-	/*Core::Position position(
-		rand() % m_size.x,
-		rand() % m_size.y
-	);*/
 	Core::Position position(
 		20,
 		100
@@ -23,7 +20,9 @@ void Level::init()
 
 	snake = new Snake(position);
 	snake->setSpeed(speed);
-	//snake->setDirection((rand() % 2) - 1, (rand() % 2) - 1);
+	snake->subscribeOnDie([this]() {
+		pause();
+	});
 	Core::GameObject::invoke(*snake);
 
 
@@ -34,7 +33,8 @@ void Level::init()
 	eat = new Eat(eatPosition, Snake::SEGMENT_SIZE, [&](Eat& eat) {
 		m_handleEat(eat);
 		});
-	//eat->onEat = &Level::m_handleEat;
+
+	m_randomMoveEat();
 	Core::GameObject::invoke(*eat);
 }
 

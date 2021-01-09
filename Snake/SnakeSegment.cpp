@@ -35,7 +35,11 @@ void SnakeSegment::update()
 
 void SnakeSegment::onCollide(Core::Collider& collider)
 {
-	Logger::debug("hrum hrum");
+	if (SnakeSegment* segment = dynamic_cast<SnakeSegment*>(&collider.gameObject)) {
+		if (Snake* snake = dynamic_cast<Snake*>(parent)) {
+			snake->onSegmentCollide(*segment);
+		}
+	}
 }
 
 void SnakeSegment::move()
