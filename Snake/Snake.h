@@ -31,4 +31,5 @@ private:
 	void m_move();
 	void m_moveTail();
 	void m_addSection();
+	void m_teleportOutMap();
 };

@@ -1,16 +1,18 @@
 #include "SnakeGame.h"
 
 
-SnakeGame::SnakeGame(const Vector2d<int>* pos, const Size* size, const char* windowTitle)
+Size SnakeGame::windowSize = Size(500, 500);
+
+SnakeGame::SnakeGame(const Vector2d<int>& pos, const Size& size, const char* windowTitle)
 	: SnakeGame::SnakeGame(pos, size)
 {
 	m_windowTitle = windowTitle;
 }
 
-SnakeGame::SnakeGame(const Vector2d<int>* pos, const Size* size)
+SnakeGame::SnakeGame(const Vector2d<int>& pos, const Size& size)
+	: m_position(pos)
 {
-	m_size = size;
-	m_position = pos;
+	windowSize = size;
 }
 
 SnakeGame::~SnakeGame()
@@ -28,7 +30,7 @@ void SnakeGame::init()
 		m_initRenderer();
 		m_isRunning = true;
 		Core::Time::init();
-		currentLevel = new Level(Level::Size(m_size->x, m_size->y));
+		currentLevel = new Level(Level::Size(windowSize.x, windowSize.y));
 		currentLevel->start();
 	}
 	else {
@@ -91,10 +93,10 @@ void SnakeGame::m_initWindow()
 {
 	m_window = SDL_CreateWindow(
 		m_windowTitle,
-		m_position->x,
-		m_position->y,
-		m_size->x,
-		m_size->y,
+		m_position.x,
+		m_position.y,
+		windowSize.x,
+		windowSize.y,
 		0 // flag
 	);
 

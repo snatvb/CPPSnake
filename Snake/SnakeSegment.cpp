@@ -1,4 +1,5 @@
 #include "SnakeSegment.h"
+#include "SnakeGame.h"
 
 SnakeSegment::SnakeSegment(Snake& snake, const Core::Position& position, short int segmentSize)
 	: m_segmentSize(segmentSize)
@@ -17,6 +18,19 @@ void SnakeSegment::onInvoke()
 
 void SnakeSegment::update()
 {
+	if (transform->position.x >= SnakeGame::windowSize.x) {
+		transform->position.x = 0;
+	} else if (transform->position.x < 0) {
+		transform->position.x = SnakeGame::windowSize.x - Snake::SEGMENT_SIZE;
+	}
+
+
+	if (transform->position.y >= SnakeGame::windowSize.y) {
+		transform->position.y = 0;
+	}
+	else if (transform->position.y < 0) {
+		transform->position.y = SnakeGame::windowSize.y - Snake::SEGMENT_SIZE;
+	}
 }
 
 void SnakeSegment::onCollide(Core::Collider& collider)

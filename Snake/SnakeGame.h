@@ -7,8 +7,10 @@
 class SnakeGame
 {
 public:
-	SnakeGame(const Vector2d<int>* pos, const Size* size, const char* windowTitle);
-	SnakeGame(const Vector2d<int>* pos, const Size* size);
+	static Size windowSize;
+
+	SnakeGame(const Vector2d<int>& pos, const Size& size, const char* windowTitle);
+	SnakeGame(const Vector2d<int>& pos, const Size& size);
 	~SnakeGame();
 
 	void init();
@@ -20,8 +22,7 @@ public:
 	bool isRunning();
 
 private:
-	const Size* m_size;
-	const Vector2d<int>* m_position;
+	const Vector2d<int> m_position;
 	const char* m_windowTitle = "Title";
 	
 	bool m_isRunning = false;
