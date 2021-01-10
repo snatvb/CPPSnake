@@ -18,6 +18,7 @@ SnakeGame::SnakeGame(const Vector2d<int>& pos, const Size& size)
 SnakeGame::~SnakeGame()
 {
 	delete currentLevel;
+	delete m_hud;
 }
 
 void SnakeGame::init()
@@ -28,9 +29,10 @@ void SnakeGame::init()
 
 		m_initWindow();
 		m_initRenderer();
+		m_initHUD();
 		m_isRunning = true;
 		Core::Time::init();
-		currentLevel = new Level(Level::Size(windowSize.x, windowSize.y));
+		currentLevel = new Level(Level::Size(windowSize.x, windowSize.y), *m_hud);
 		currentLevel->start();
 	}
 	else {
@@ -72,6 +74,7 @@ void SnakeGame::render()
 {
 	SDL_RenderClear(m_renderer);
 	currentLevel->render(*m_renderer);
+	m_hud->render();
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 	SDL_RenderPresent(m_renderer);
 }
@@ -114,3 +117,10 @@ void SnakeGame::m_initRenderer()
 		Logger::debug("Renderer initialized");
 	}
 }
+
+void SnakeGame::m_initHUD()
+{
+	m_hud = new HUD(*m_renderer);
+	m_hud->init();
+}
+

@@ -7,7 +7,7 @@ namespace Logger {
 	using namespace std;
 
 	template <typename T>
-	void debug(T value) {
+	inline void debug(T value) {
 		cout << "[DEBUG]\t" << value << endl;
 	}
 

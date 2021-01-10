@@ -3,6 +3,7 @@
 #include <ctime>
 #include "Core.h"
 #include "Level.h"
+#include "HUD.h"
 
 class SnakeGame
 {
@@ -29,8 +30,10 @@ private:
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;
 	Level* currentLevel = nullptr;
+	HUD* m_hud = nullptr;
 
 	void m_initWindow();
 	void m_initRenderer();
+	void m_initHUD();
 };
 

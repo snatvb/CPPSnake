@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include "SDL_ttf.h"
 #include "logger.cpp"
 #include "Time.h"
 #include "TimerCalling.h"

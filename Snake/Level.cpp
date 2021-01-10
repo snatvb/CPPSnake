@@ -1,8 +1,9 @@
 #include "Level.h"
+#include "UIScore.h"
 
-Level::Level(const Size& size) : m_size(Size::clone(size))
+Level::Level(const Size& size, HUD& hud)
+	: m_size(Size::clone(size)), m_hud(hud)
 {
-	score = rand() % 2 + 1;
 }
 
 Level::~Level()
@@ -69,9 +70,17 @@ void Level::unpause()
 	m_paused = false;
 }
 
+void Level::addScore(unsigned int score)
+{
+	m_score += score;
+	//TODO: update hud
+	auto uiScore = m_hud.getComponent<UIScore>();
+	uiScore->setScore(m_score);
+}
+
 void Level::m_handleEat(Eat& eat)
 {
-	score += eat.score;
+	addScore(eat.score);
 	snake->grow();
 	m_randomMoveEat();
 }
@@ -85,6 +94,7 @@ void Level::m_randomMoveEat()
 	position.x -= position.x % Snake::SEGMENT_SIZE;
 	position.y -= position.y % Snake::SEGMENT_SIZE;
 	eat->transform->position = position;
+	eat->score = rand() % 2 + 1;
 }
 
 void Level::onGameOver(void(*callback)())
