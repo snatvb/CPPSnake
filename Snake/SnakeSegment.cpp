@@ -96,25 +96,17 @@ std::string SnakeSegment::toString()
 
 inline bool SnakeSegment::m_isValidDirection(Direction direction)
 {
-	if (m_direction == Direction::Left) {
+	switch (m_direction)
+	{
+	case Direction::Left:
 		return direction != Direction::Right;
-	}
-
-	if (m_direction == Direction::Top) {
+	case Direction::Top:
 		return direction != Direction::Bottom;
-	}
-
-	if (m_direction == Direction::Right) {
+	case Direction::Right:
 		return direction != Direction::Left;
-	}
-
-	if (m_direction == Direction::Right) {
-		return direction != Direction::Left;
-	}
-
-	if (m_direction == Direction::Bottom) {
+	case Direction::Bottom:
 		return direction != Direction::Top;
+	default:
+		return true;
 	}
-
-	return true;
 }
