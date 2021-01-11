@@ -76,7 +76,7 @@ void SnakeSegment::setDirection(SnakeSegment& segment)
 	m_direction = segment.m_direction;
 }
 
-SnakeSegment::Direction SnakeSegment::getDirection()
+Direction SnakeSegment::getDirection()
 {
 	return m_direction;
 }

@@ -184,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Eat.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="UIGameOver.h" />

@@ -1,17 +1,13 @@
 #pragma once
 #include "Core.h"
+#include "Direction.h"
 #include "Snake.h"
 
 class Snake;
 
+
 class SnakeSegment : public Core::GameObject {
 public:
-	enum class Direction {
-		Left,
-		Top,
-		Bottom,
-		Right,
-	};
 	SnakeSegment* prevSegment = nullptr;
 	SnakeSegment* nextSegment = nullptr;
 
