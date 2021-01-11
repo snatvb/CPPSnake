@@ -1,6 +1,11 @@
 #include <string>
 #include "UIScore.h"
 
+UIScore::~UIScore()
+{
+	//SDL_DestroyTexture(m_texture);
+}
+
 void UIScore::setScore(int score)
 {
 	if (m_texture != nullptr) {
@@ -19,4 +24,9 @@ void UIScore::setScore(int score)
 void UIScore::draw()
 {
 	SDL_RenderCopy(m_getRenderer(), m_texture, nullptr, &m_rect);
+}
+
+void UIScore::clean()
+{
+	SDL_DestroyTexture(m_texture);
 }

@@ -8,7 +8,6 @@ Snake::Snake(Core::Position& position) : GameObject()
 
 Snake::~Snake()
 {
-	delete m_head;
 }
 
 void Snake::onInvoke()

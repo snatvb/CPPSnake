@@ -17,8 +17,6 @@ SnakeGame::SnakeGame(const Vector2d<int>& pos, const Size& size)
 
 SnakeGame::~SnakeGame()
 {
-	delete currentLevel;
-	delete m_hud;
 }
 
 void SnakeGame::init()
@@ -29,11 +27,8 @@ void SnakeGame::init()
 
 		m_initWindow();
 		m_initRenderer();
-		m_initHUD();
 		m_isRunning = true;
-		Core::Time::init();
-		currentLevel = new Level(Level::Size(windowSize.x, windowSize.y), *m_hud);
-		currentLevel->start();
+		m_gameInit();
 	}
 	else {
 		m_isRunning = false;
@@ -67,6 +62,9 @@ void SnakeGame::handleEvents()
 void SnakeGame::update()
 {
 	Core::Time::update();
+	if (Core::Keyboard::isPressed(SDLK_r)) {
+		return m_restart();
+	}
 	currentLevel->update();
 }
 
@@ -84,6 +82,7 @@ void SnakeGame::clean()
 	SDL_DestroyWindow(m_window);
 	SDL_DestroyRenderer(m_renderer);
 	SDL_Quit();
+	m_gameClean();
 	Logger::debug("Game cleaned");
 }
 
@@ -118,9 +117,31 @@ void SnakeGame::m_initRenderer()
 	}
 }
 
+void SnakeGame::m_gameInit()
+{
+	Core::Time::init();
+	m_initHUD();
+	currentLevel = new Level(Level::Size(windowSize.x, windowSize.y), *m_hud);
+	currentLevel->start();
+}
+
 void SnakeGame::m_initHUD()
 {
 	m_hud = new HUD(*m_renderer);
 	m_hud->init();
+}
+
+void SnakeGame::m_gameClean()
+{
+	delete currentLevel;
+	// TODO: correct this
+	delete m_hud;
+}
+
+void SnakeGame::m_restart()
+{
+	m_gameClean();
+	m_gameInit();
+	Logger::debug("Restart!");
 }
 

@@ -34,6 +34,9 @@ private:
 
 	void m_initWindow();
 	void m_initRenderer();
+	void m_gameInit();
 	void m_initHUD();
+	void m_gameClean();
+	void m_restart();
 };
 

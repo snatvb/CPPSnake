@@ -84,9 +84,9 @@ Core::GameObject::~GameObject()
 		delete collider;
 	}
 
-	/*for (auto child : childs) {
+	for (auto child : childs) {
 		delete child;
-	}*/
+	}
 
 	delete transform;
 }

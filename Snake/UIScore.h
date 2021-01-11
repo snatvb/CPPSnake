@@ -8,9 +8,11 @@ public:
 
 	UIScore(HUD& hud, Core::Position& position)
 		: UIComponent(hud, position) {}
+	~UIScore();
 
 	void setScore(int score);
 	void draw() override;
+	void clean() override;
 
 private:
 	SDL_Rect m_rect;

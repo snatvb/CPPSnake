@@ -10,6 +10,7 @@ public:
 	UIComponent(HUD& hud, Core::Position& position);
 
 	virtual void draw() = 0;
+	virtual void clean() = 0;
 
 protected:
 	HUD& m_hud;
