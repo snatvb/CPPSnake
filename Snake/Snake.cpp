@@ -70,22 +70,23 @@ void Snake::m_addSection()
 void Snake::m_handleInput()
 {
 	if (Core::Keyboard::isPressed(SDL_KeyCode::SDLK_w)) {
-		m_head->setDirection(SnakeSegment::Direction::Top);
+		m_direction = SnakeSegment::Direction::Top;
 	}
 	else if (Core::Keyboard::isPressed(SDL_KeyCode::SDLK_s)) {
-		m_head->setDirection(SnakeSegment::Direction::Bottom);
+		m_direction = SnakeSegment::Direction::Bottom;
 	}
 	else if (Core::Keyboard::isPressed(SDL_KeyCode::SDLK_a)) {
-		m_head->setDirection(SnakeSegment::Direction::Left);
+		m_direction = SnakeSegment::Direction::Left;
 	}
 	else if (Core::Keyboard::isPressed(SDL_KeyCode::SDLK_d)) {
-		m_head->setDirection(SnakeSegment::Direction::Right);
+		m_direction = SnakeSegment::Direction::Right;
 	}
 }
 
 void Snake::m_move()
 {
 	if (m_moveCooldown <= 0) {
+		m_head->setDirection(m_direction);
 		m_head->move();
 		m_moveTail();
 		m_moveCooldown = 1 / m_speed;

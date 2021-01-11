@@ -22,7 +22,7 @@ public:
 
 private:
 	SnakeSegment* m_head = nullptr;
-	Vector2d<__int8> m_direction;
+	SnakeSegment::Direction m_direction;
 	float m_moveCooldown = 0;
 	float m_speed = 1;
 	bool m_isGrowing = false;
