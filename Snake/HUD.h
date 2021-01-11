@@ -7,7 +7,9 @@ class UIComponent;
 
 class HUD {
 public:
-	HUD(SDL_Renderer& renderer);
+	Size size;
+
+	HUD(SDL_Renderer& renderer, Size& size);
 	~HUD();
 
 	void init();

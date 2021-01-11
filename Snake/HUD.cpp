@@ -1,9 +1,10 @@
 #include "Core.h"
 #include "HUD.h"
 #include "UIScore.h"
+#include "UIGameOver.h"
 
-HUD::HUD(SDL_Renderer& renderer)
-	: m_renderer(&renderer)
+HUD::HUD(SDL_Renderer& renderer, Size& size)
+	: m_renderer(&renderer), size(size)
 {
 }
 
@@ -28,6 +29,7 @@ void HUD::init()
 	auto score = new UIScore(*this, scorePosition);
 	score->setScore(0);
 	m_components.push_back(score);
+	m_components.push_back(new UIGameOver(*this));
 }
 
 void HUD::render()

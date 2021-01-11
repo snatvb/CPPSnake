@@ -1,8 +1,14 @@
 #include "UIComponent.h"
 
-UIComponent::UIComponent(HUD& hud, Core::Position& position)
-	: m_hud(hud), position(position)
+UIComponent::UIComponent(HUD& hud)
+	: m_hud(hud)
 {
+}
+
+UIComponent::UIComponent(HUD& hud, Core::Position& position)
+	: UIComponent(hud)
+{
+	this->position = position;
 }
 
 SDL_Renderer* UIComponent::m_getRenderer()

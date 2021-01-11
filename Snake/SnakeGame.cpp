@@ -127,7 +127,7 @@ void SnakeGame::m_gameInit()
 
 void SnakeGame::m_initHUD()
 {
-	m_hud = new HUD(*m_renderer);
+	m_hud = new HUD(*m_renderer, windowSize);
 	m_hud->init();
 }
 

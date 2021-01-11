@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "UIScore.h"
+#include "UIGameOver.h"
 
 Level::Level(const Size& size, HUD& hud)
 	: m_size(Size::clone(size)), m_hud(hud)
@@ -22,7 +23,7 @@ void Level::init()
 	snake = new Snake(position);
 	snake->setSpeed(speed);
 	snake->subscribeOnDie([this]() {
-		pause();
+		m_gameOver();
 	});
 	Core::GameObject::invoke(*snake);
 
@@ -45,14 +46,14 @@ void Level::start()
 	unpause();
 }
 
-bool Level::isPaused()
+inline bool Level::isPaused()
 {
-	return m_paused;
+	return m_state == State::Pause || m_state == State::GameOver;
 }
 
 void Level::update()
 {
-	if (m_paused) {
+	if (isPaused()) {
 		return;
 	}
 
@@ -62,18 +63,19 @@ void Level::update()
 
 void Level::pause()
 {
-	m_paused = true;
+	m_state = State::Pause;
 }
 
 void Level::unpause()
 {
-	m_paused = false;
+	if (m_state == State::Pause) {
+		m_state = State::Play;
+	}
 }
 
 void Level::addScore(unsigned int score)
 {
 	m_score += score;
-	//TODO: update hud
 	auto uiScore = m_hud.getComponent<UIScore>();
 	uiScore->setScore(m_score);
 }
@@ -97,9 +99,11 @@ void Level::m_randomMoveEat()
 	eat->score = rand() % 2 + 1;
 }
 
-void Level::onGameOver(void(*callback)())
+void Level::m_gameOver()
 {
-	m_gameOver = callback;
+	pause();
+	auto ui = m_hud.getComponent<UIGameOver>();
+	ui->setDisplay(true);
 }
 
 void Level::render(SDL_Renderer& renderer)

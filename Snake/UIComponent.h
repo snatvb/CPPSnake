@@ -7,6 +7,7 @@ class UIComponent {
 public:
 	Core::Position position;
 
+	UIComponent(HUD& hud);
 	UIComponent(HUD& hud, Core::Position& position);
 
 	virtual void draw() = 0;
@@ -14,6 +15,7 @@ public:
 
 protected:
 	HUD& m_hud;
+	Size m_screenSize;
 
 	SDL_Renderer* m_getRenderer();
 	TTF_Font* m_getFont();

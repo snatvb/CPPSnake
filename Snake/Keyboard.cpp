@@ -16,3 +16,9 @@ bool Core::Keyboard::isPressed(SDL_Keycode keycode)
 {
 	return Core::Keyboard::m_keycode == keycode;
 }
+
+SDL_Keycode Core::Keyboard::getKeycodePressed()
+{
+	return m_keycode;
+}
+

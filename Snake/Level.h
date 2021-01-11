@@ -6,6 +6,12 @@
 
 class Level {
 public:
+	enum class State {
+		Play,
+		Pause,
+		GameOver,
+	};
+
 	using Size = Vector2d<unsigned short int>;
 	char* name = nullptr;
 	float speed = 10;
@@ -23,15 +29,14 @@ public:
 	void pause();
 	void unpause();
 	void addScore(unsigned int score);
-	void onGameOver(void (*callback)());
 
 private:
-	bool m_paused = true;
+	State m_state = State::Pause;
 	unsigned int m_score = 0;
 	const Size m_size;
 	HUD& m_hud;
 
 	void m_handleEat(Eat& eat);
 	void m_randomMoveEat();
-	void (*m_gameOver)() = nullptr;
+	void m_gameOver();
 };

@@ -1,15 +1,10 @@
 #include <string>
 #include "UIScore.h"
 
-UIScore::~UIScore()
-{
-	//SDL_DestroyTexture(m_texture);
-}
-
 void UIScore::setScore(int score)
 {
 	if (m_texture != nullptr) {
-		SDL_DestroyTexture(m_texture);
+		clean();
 	}
 
 	m_rect.x = position.x;
