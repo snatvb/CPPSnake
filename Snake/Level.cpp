@@ -13,6 +13,13 @@ Level::~Level()
 	delete eat;
 }
 
+template<typename T, typename ...TArgs>
+inline T& create(TArgs&& ...args)
+{
+	T* gameObject = new T(std::forward<TArgs>(args)...);
+	return *gameObject;
+}
+
 void Level::init()
 {
 	Core::Position position(
@@ -20,24 +27,22 @@ void Level::init()
 		100
 	);
 
-	snake = new Snake(position);
+	snake = &Core::invokeGameObject<Snake>(position);
 	snake->setSpeed(speed);
 	snake->subscribeOnDie([this]() {
 		m_gameOver();
 	});
-	Core::GameObject::invoke(*snake);
 
 
 	Core::Position eatPosition(
 		100,
 		100
 	);
-	eat = new Eat(eatPosition, Snake::SEGMENT_SIZE, [&](Eat& eat) {
+	eat = &Core::invokeGameObject<Eat>(eatPosition, Snake::SEGMENT_SIZE, [&](Eat& eat) {
 		m_handleEat(eat);
-		});
+	});
 
 	m_randomMoveEat();
-	Core::GameObject::invoke(*eat);
 }
 
 void Level::start()
